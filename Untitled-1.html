@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para la persona más linda</title>
+    <style>
+        /* ESTILOS GENERALES DEL CUERPO */
+        body {
+            background-color: #fce4ec; /* Fondo rosa pastel muy suave */
+            color: #d81b60; /* Color principal de texto, rosa intenso */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Oculta la barra de desplazamiento causada por los corazones */
+            text-align: center;
+            flex-direction: column;
+        }
+
+        /* ESTILO DEL CONTENEDOR PRINCIPAL */
+        #content-box {
+            position: relative;
+            z-index: 10; /* Asegura que el contenido esté por encima de los corazones */
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para resaltar */
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            cursor: pointer; /* Indica que se puede hacer clic */
+            transition: transform 0.3s ease;
+        }
+
+        #content-box:hover {
+            transform: scale(1.05);
+        }
+
+        /* ESTILO DEL TEXTO DE LA PREGUNTA */
+        #question {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px #ffcdd2;
+        }
+
+        /* ESTILO DE LA IMAGEN OCULTA */
+        #beautiful-eyes-image {
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(216, 27, 96, 0.8);
+            display: none; /* Inicialmente oculta */
+        }
+        
+        /* --- ANIMACIÓN DE CORAZONES CAYENDO (LLUVIA) --- */
+        .heart {
+            position: absolute;
+            top: -10vh; /* Empieza por encima de la pantalla */
+            font-size: 20px;
+            color: #e91e63; /* Rosa de corazón */
+            animation: fall linear infinite;
+            pointer-events: none; /* Ignora clics en los corazones */
+            text-shadow: 1px 1px #880e4f;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* --- PALABRAS DE AMOR FLOTANTES/APAREEIENDO --- */
+        .love-word {
+            position: absolute;
+            font-weight: 600;
+            color: #880e4f; /* Rosa oscuro */
+            z-index: 5;
+            opacity: 0;
+            animation: float-in 15s ease-out infinite; /* Aumentamos la duración para más palabras */
+            pointer-events: none;
+            padding: 5px; /* Pequeño padding para que no se vea cortado */
+        }
+
+        @keyframes float-in {
+            0% { transform: translateY(50px) scale(0.5); opacity: 0; }
+            10% { opacity: 1; transform: translateY(0) scale(1); }
+            90% { opacity: 1; }
+            100% { transform: translateY(-50px) scale(0.8); opacity: 0; }
+        }
+
+        /* Puedes modificar el font-size de cada palabra si quieres que unas resalten más */
+        #word1 { top: 10%; left: 5%; animation-delay: 0s; font-size: 1.6em; } 
+        #word2 { top: 25%; right: 10%; animation-delay: 1.25s; font-size: 1.8em; } 
+        #word3 { bottom: 15%; left: 8%; animation-delay: 2.5s; font-size: 1.5em; } 
+        #word4 { top: 5%; right: 20%; animation-delay: 3.75s; font-size: 2em; } 
+        #word5 { top: 40%; left: 3%; animation-delay: 5s; font-size: 1.7em; } /* NUEVAS PALABRAS INICIAN AQUÍ */
+        #word6 { bottom: 5%; right: 5%; animation-delay: 6.25s; font-size: 2.2em; }
+        #word7 { top: 60%; left: 15%; animation-delay: 7.5s; font-size: 1.9em; }
+        #word8 { top: 15%; right: 5%; animation-delay: 8.75s; font-size: 2.5em; }
+        #word9 { bottom: 30%; left: 1%; animation-delay: 10s; font-size: 1.4em; }
+        #word10 { bottom: 40%; right: 20%; animation-delay: 11.25s; font-size: 1.6em; }
+        #word11 { top: 30%; left: 20%; animation-delay: 12.5s; font-size: 1.8em; }
+        #word12 { bottom: 5%; left: 25%; animation-delay: 13.75s; font-size: 1.3em; }
+
+    </style>
+</head>
+<body>
+
+    <div id="heart-container"></div>
+
+    <div class="love-word" id="word1">Te amo mutito</div>
+    <div class="love-word" id="word2">Te extraño</div>
+    <div class="love-word" id="word3">Me encantas</div>
+    <div class="love-word" id="word4">Nenita bonita</div>
+    <div class="love-word" id="word5">Mi amorrrr mi nenitaaa</div>
+    <div class="love-word" id="word6">Mi morenita</div>
+    <div class="love-word" id="word7">Mamiiiiiiiiiiii</div>
+    <div class="love-word" id="word8">Mi vidaaa</div>
+    <div class="love-word" id="word9">Mi lunitaaaaa</div>
+    <div class="love-word" id="word10">Mi corazonnn</div>
+    <div class="love-word" id="word11">Corazoncitooo</div>
+    <div class="love-word" id="word12">Milenin pequeñina</div>
+
+    <div id="content-box">
+        <div id="question">¿Quieres ver los ojos más lindos del mundo?</div>
+        
+        <img id="beautiful-eyes-image" src="1000186310.jpeg" alt="Los ojos más lindos del mundo">
+    </div>
+
+    <script>
+        // LÓGICA DE JAVASCRIPT
+
+        // 1. Mostrar imagen al hacer clic
+        document.getElementById('content-box').addEventListener('click', function() {
+            // Oculta la pregunta
+            document.getElementById('question').style.display = 'none';
+            // Muestra la imagen
+            document.getElementById('beautiful-eyes-image').style.display = 'block';
+            // Opcional: Deshabilita el cursor de "clic" después de mostrar la imagen
+            this.style.cursor = 'default';
+            // Opcional: Detener la animación de las palabras de amor
+            document.querySelectorAll('.love-word').forEach(word => {
+                word.style.animationPlayState = 'paused';
+            });
+        });
+
+        // 2. Generación de la lluvia de corazones
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '&#10084;'; // Carácter de corazón HTML
+            
+            // Posición horizontal aleatoria
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            // Velocidad y duración de caída aleatoria
+            const duration = Math.random() * 5 + 5; // 5 a 10 segundos
+            heart.style.animationDuration = duration + 's';
+            
+            // Tamaño aleatorio
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px'; // 15 a 30px
+            
+            document.getElementById('heart-container').appendChild(heart);
+
+            // Elimina el corazón después de que haya caído
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // Crea un nuevo corazón cada 300 milisegundos
+        setInterval(createHeart, 300);
+
+    </script>
+
+</body>
+</html>
